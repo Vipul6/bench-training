@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head>
+	<title></title>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.11/angular.min.js"></script>
+
+</head>
+<body ng-controller="firstController">
+	<span ng-bind="name"></span><br/>
+
+	<input type="text" ng-model="search" />
+
+	<ul>
+		<li ng-repeat="detail in detailList | filter: search">
+			<span ng-bind="detail.name | uppercase "></span> is <span ng-bind="detail.age"></span> year old and lives in <span ng-bind="detail.address"></span>
+		</li>
+	</ul>
+	<br/>
+	<div ng-bind="name | customFilter"></div>
+
+<script type="text/javascript">
+	angular.module("myApp",[])
+		.controller('firstController',['$scope',function($scope){
+			$scope.name="Naveen";
+
+			$scope.detailList = [
+				{
+					name : "Naveen",
+					age : 25,
+					address :"Delhi"
+				},
+				{
+					name : "Paran",
+					age : 26,
+					address :"Noida"
+				},
+				{
+					name : "Harsh",
+					age : 24,
+					address :"Delhi"
+				},
+				{
+					name : "Manoj",
+					age : 25,
+					address :"Gurgaon"
+				}
+			];
+
+
+		}])
+		.filter('customFilter',function(){
+			return function(elem){
+				return elem.toUpperCase();
+			}
+		});
+
+</script>
+</body>
+</html>
