@@ -1,0 +1,61 @@
+	<!DOCTYPE html>
+	<html ng-app="ToDo">
+
+	<head>
+		<title>todo</title>
+		<style type="text/css">
+			.done{
+				text-decoration: line-through; color: #ccc;
+			}
+		</style>
+		<script src= "http://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.min.js"></script>
+	</head>
+
+	<body>
+
+		<div ng-controller="todocontroller">
+			<form name="frm" ng-submit="addTodo()">
+				<input type="text" name="newtodo" ng-model="newTodo" required />
+				<button ng-disabled="frm.$invalid">Add</button>
+			</form>
+			<button ng-click="clearCompleted()">Clear completed Todo</button>
+			<ul>
+				<li ng-repeat="todo in todos">
+					<input type="checkbox" ng-model="todo.done" />
+					<span ng-class="{'done':todo.done}">{{todo.title}}</span>
+					
+				</li>
+
+			</ul>
+		</div>
+
+		<script type="text/javascript">
+	/**
+	*  Module
+	*
+	* Description
+	*/
+	angular.module('ToDo', []).controller('todocontroller', ['$scope', function($scope){
+		$scope.todos=[
+		{'title':'to do app today','done':false}
+		];
+		$scope.addTodo = function(){
+			$scope.todos.push({'title':$scope.newTodo,'done':false});
+			$scope.newTodo='';
+		}
+		$scope.clearCompleted = function(){
+			$scope.todos = $scope.todos.filter(function(item){
+
+				return !item.done
+
+
+			})
+		}
+		
+	}])
+
+</script>
+
+
+</body>
+</html>
